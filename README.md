@@ -13,7 +13,6 @@ MRS 1 - B3
 
 ## Basic instructions
 * Read the provided well log ('WA1.txt') and biozone ('WA1_biozones.csv') files
-2 - Identify peaks and troughs in the relevant logs, in order to help you identify 
-significant local variations in the data that may be indicative of lithological changes
-3 - Plot well logs and biozones versus depth, marking the detected peaks and troughs.
-4 - Based on the provided information place the Sequence stratigraphic picks and return their depths
+* Identify peaks and troughs in the relevant logs, in order to help you identify significant local variations in the data that may be indicative of lithological changes
+* Plot well logs and biozones versus depth, marking the detected peaks and troughs.
+*Based on the provided information place the Sequence stratigraphic picks and return their depths
