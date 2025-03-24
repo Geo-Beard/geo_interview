@@ -7,9 +7,9 @@ Overall time 1 hour (50 minutes coding, 10 minutes review and discussion)
 Exercise aim is to load well data, visualize well logs and place sequence stratigraphic picks into a single well using available data.
 
 ## Sequence stratigraphic pick biozone association
-MRS 2 - B2a
-MFS 1 - B2b
-MRS 1 - B3
+* MRS 2 - B2a
+* MFS 1 - B2b
+* MRS 1 - B3
 
 ## Basic instructions
 * Read the provided well log ('WA1.txt') and biozone ('WA1_biozones.csv') files
