@@ -1,6 +1,4 @@
-# geo_interview
-
-## Well log data analysis exercise
+# Well log data analysis exercise
 
 Overall time 1 hour (50 minutes coding, 10 minutes review and discussion)
 
