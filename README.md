@@ -13,4 +13,4 @@ Exercise aim is to load well data, visualize well logs and place sequence strati
 * Read the provided well log ('WA1.txt') and biozone ('WA1_biozones.csv') files
 * Identify peaks and troughs in the relevant logs, in order to help you identify significant local variations in the data that may be indicative of lithological changes
 * Plot well logs and biozones versus depth, marking the detected peaks and troughs.
-*Based on the provided information place the Sequence stratigraphic picks and return their depths
+* Based on the provided information place the Sequence stratigraphic picks and return their depths
