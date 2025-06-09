@@ -1,8 +1,12 @@
 def build_config(well):
     config = {}
     for log_name in well.head(0):
-        # if log_name == 'M__DEPTH':
-        #     config[log_name] = {"data": well[log_name]}
+        # Need to remove depth so as not to plot it
+        if log_name == 'M__DEPTH':
+            config[log_name] = {"data": well[log_name],
+                                "xlim": (0, 4000),
+                                "xticks": [0, 1000, 2000, 3000, 4000],
+                                "color": "black"}
         if log_name == 'GR':
             config[log_name] = {"data": well[log_name],
                                 "xlim": (0, 150),

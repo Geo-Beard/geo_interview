@@ -1,4 +1,4 @@
-from main import read_data
+from utils.read_data import read_data
 from scipy.signal import find_peaks
 import matplotlib.pyplot as plt
 
