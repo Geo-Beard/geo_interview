@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.signal import find_peaks
 
 
 def makeplot(depth, gamma, res, neut, dens, dtc, formations_dict, topdepth,
@@ -42,6 +43,24 @@ def makeplot(depth, gamma, res, neut, dens, dtc, formations_dict, topdepth,
              horizontalalignment='right', transform=ax1.transAxes)
     ax1.set_xticklabels([])
 
+    # Adding peaks and troughs detection for Gamma
+
+    # Ensure gamma and depth are numpy arrays for indexing
+    gamma = np.array(gamma)
+    depth = np.array(depth)
+
+    # Detect peaks (high gamma values)
+    peaks, _ = find_peaks(gamma, prominence=30, distance=60)
+
+    # Detect troughs (low gamma values)
+    troughs, _ = find_peaks(-gamma, prominence=30, distance=60)
+
+    # Plot markers on gamma track
+    ax1.plot(gamma[peaks], depth[peaks], 'ro', markersize=3,
+             label='Peaks')     # red dots for peaks
+    ax1.plot(gamma[troughs], depth[troughs], 'bo', markersize=3,
+             label='Troughs')  # blue dots for troughs
+
     # Setting Up Shading for GR
     left_col_value = 0
     right_col_value = 150
@@ -69,6 +88,23 @@ def makeplot(depth, gamma, res, neut, dens, dtc, formations_dict, topdepth,
     ax2.text(0.95, 1.04, 1000, color='red',
              horizontalalignment='right', transform=ax2.transAxes)
     ax2.set_xticklabels([])
+
+    # Adding peaks and troughs detection for Res
+
+    # Ensure gamma and depth are numpy arrays for indexing, already have depth
+    resistivity = np.array(res)
+
+    # Detect peaks (high gamma values)
+    peaks, _ = find_peaks(resistivity, prominence=5, distance=10)
+
+    # Detect troughs (low gamma values)
+    troughs, _ = find_peaks(-resistivity, prominence=5, distance=10)
+
+    # Plot markers on gamma track
+    ax2.plot(res[peaks], depth[peaks], 'ro', markersize=3,
+             label='Peaks')     # red dots for peaks
+    ax2.plot(res[troughs], depth[troughs], 'bo', markersize=3,
+             label='Troughs')  # blue dots for troughs
 
     # Density track
     ax3.plot(dens, depth, color="red", linewidth=0.5)

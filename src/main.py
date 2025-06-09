@@ -50,7 +50,7 @@ def demo_plot():
              None,
              biozones_dict,
              0,
-             4000,
+             3666,
              zone_colors,
              biozone_midpoints)
 
