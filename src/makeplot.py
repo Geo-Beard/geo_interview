@@ -6,14 +6,19 @@ from scipy.signal import find_peaks
 def makeplot(depth, gamma, res, neut, dens, dtc, formations_dict, topdepth,
              bottomdepth, colors, formation_midpoints):
     fig, ax = plt.subplots(figsize=(15, 10))
-    # Removes default 0-1 axes
+    # Removes default 0-1 axes as we're using subplots
     fig.delaxes(ax)
 
     # Set up the plot axes
+    # Depth
     ax1 = plt.subplot2grid((1, 10), (0, 0), rowspan=1, colspan=3)
+    # Res
     ax2 = plt.subplot2grid((1, 10), (0, 3), rowspan=1, colspan=3, sharey=ax1)
+    # Neutron
     ax3 = plt.subplot2grid((1, 10), (0, 6), rowspan=1, colspan=3, sharey=ax1)
+    # Density shared with Neutron
     ax4 = ax3.twiny()
+    # Biozones
     ax5 = plt.subplot2grid((1, 10), (0, 9), rowspan=1, colspan=1, sharey=ax1)
 
     # As our curve scales will be detached from the top of the track,

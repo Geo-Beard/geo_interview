@@ -1,4 +1,4 @@
-from src.main import read_data
+from utils.read_data import read_data
 import pandas as pd
 import pytest
 

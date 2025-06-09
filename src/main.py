@@ -1,7 +1,7 @@
 import pandas as pd
 import logging
-from makeplot import makeplot
-from formation_utils import formation_dict_maker, formation_midpoint_maker
+from src.makeplot import makeplot
+from src.formation_utils import formation_dict_maker, formation_midpoint_maker
 
 
 logger = logging.getLogger(__name__)
@@ -55,4 +55,4 @@ def demo_plot():
              biozone_midpoints)
 
 
-demo_plot()
+# demo_plot()
