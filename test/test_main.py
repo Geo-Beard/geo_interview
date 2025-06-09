@@ -24,7 +24,7 @@ def test_read_data_returns_expected_head_txt():
                         'NPHI',
                         'DT',
                         'MudWgt']
-    returned_columns = [col for col in df.columns[0].split(' ')]
+    returned_columns = list(df.columns)
     assert expected_columns == returned_columns
 
 
