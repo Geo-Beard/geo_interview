@@ -230,7 +230,7 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dt, formations_dict,
         ax.xaxis.set_label_position("top")
         ax.spines["top"].set_position(("axes", 1.02))
 
-    for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8]:
+    for ax in [ax1, ax2, ax5, ax7, ax8]:
         # loop through the formations dictionary and zone colors
         for depth, color in zip(formations_dict.values(), colors):
             # use the depths and colors to shade across the subplots
@@ -245,6 +245,15 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dt, formations_dict,
                  verticalalignment='center', fontweight='bold',
                  fontsize='small')
 
+    # Mark sequence strat picks
+    for ax in [ax1, ax2, ax5, ax7]:
+        # MRS 2 - B2a
+        ax.axhline(y=3070, color='b', linestyle='dashed')
+        # MFS 1 - B2b
+        ax.axhline(y=3220, color='purple', linestyle='dashed')
+        # MRS 1 - B3
+        ax.axhline(y=3246, color='b', linestyle='dashed')
+
     plt.tight_layout()
     fig.subplots_adjust(wspace=0)
-    plt.savefig('output/figure.png')
+    plt.savefig('output/figure.png', dpi=300)
