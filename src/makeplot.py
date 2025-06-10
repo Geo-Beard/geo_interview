@@ -266,12 +266,18 @@ def makeplot(depth, gamma, sp, res, res2, res3, neut, dens, dt,
 
     # Mark sequence strat picks
     for ax in [ax1, ax2, ax5, ax7]:
+        # Remember peaks = red, troughs = blue on gamma
+
         # MRS 2 - B2a
         ax.axhline(y=3070, color='b', linestyle='dashed')
+
         # MFS 1 - B2b
-        ax.axhline(y=3220, color='purple', linestyle='dashed')
+        # ax.axhline(y=3226, color='purple', linestyle='-')
+        # Peak from peaks and troughs calc - could tighten view
+        ax.axhline(y=3219, color='purple', linestyle='dashed')
+
         # MRS 1 - B3
-        ax.axhline(y=3246, color='b', linestyle='dashed')
+        ax.axhline(y=3250, color='b', linestyle='dashed')
 
     plt.tight_layout()
     fig.subplots_adjust(wspace=0)

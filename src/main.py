@@ -27,8 +27,8 @@ def demo_plot():
              well['RHOB'],
              well['DT'],
              biozones_dict,
-             0,
-             3666,
+             2950,
+             3350,
              zone_colors,
              biozone_midpoints)
 
