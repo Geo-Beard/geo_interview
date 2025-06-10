@@ -1,5 +1,4 @@
 from welly import Well
-from welly import Curve
 import matplotlib.pyplot as plt
 
 well = Well.from_las('data/WA1.las')
