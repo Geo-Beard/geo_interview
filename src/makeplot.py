@@ -3,7 +3,7 @@ import numpy as np
 from scipy.signal import find_peaks
 
 
-def makeplot(depth, gamma, res, res2, res3, neut, dens, dtc, formations_dict,
+def makeplot(depth, gamma, res, res2, res3, neut, dens, dt, formations_dict,
              topdepth, bottomdepth, colors, formation_midpoints):
     fig, ax = plt.subplots(figsize=(15, 10))
     # Removes default 0-1 axes as we're using subplots
@@ -11,19 +11,21 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dtc, formations_dict,
 
     # Set up the plot axes
     # GR
-    ax1 = plt.subplot2grid((1, 10), (0, 0), rowspan=1, colspan=3)
+    ax1 = plt.subplot2grid((1, 13), (0, 0), rowspan=1, colspan=3)
     # Res (LL8)
-    ax2 = plt.subplot2grid((1, 10), (0, 3), rowspan=1, colspan=3, sharey=ax1)
+    ax2 = plt.subplot2grid((1, 13), (0, 3), rowspan=1, colspan=3, sharey=ax1)
     # Res (ILM)
     ax3 = ax2.twiny()
     # Res (ILD)
     ax4 = ax3.twiny()
     # Neutron
-    ax5 = plt.subplot2grid((1, 10), (0, 6), rowspan=1, colspan=3, sharey=ax1)
+    ax5 = plt.subplot2grid((1, 13), (0, 6), rowspan=1, colspan=3, sharey=ax1)
     # Density shared with Neutron
     ax6 = ax5.twiny()
+    # DT
+    ax7 = plt.subplot2grid((1, 13), (0, 9), rowspan=1, colspan=3, sharey=ax1)
     # Biozones
-    ax7 = plt.subplot2grid((1, 10), (0, 9), rowspan=1, colspan=1, sharey=ax1)
+    ax8 = plt.subplot2grid((1, 13), (0, 12), rowspan=1, colspan=1, sharey=ax1)
 
     # As our curve scales will be detached from the top of the track,
     # this code adds the top border back in without dealing with splines
@@ -38,7 +40,10 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dtc, formations_dict,
     ax13.xaxis.set_visible(False)
     ax14 = ax5.twiny()
     ax14.xaxis.set_visible(False)
-
+    ax15 = ax6.twiny()
+    ax15.xaxis.set_visible(False)
+    ax16 = ax7.twiny()
+    ax16.xaxis.set_visible(False)
     # Gamma Ray track
 
     # Setting up the track and curve
@@ -90,7 +95,7 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dtc, formations_dict,
 
     # Resistivity track (LL8)
     ax2.plot(res, depth, color="red", linewidth=0.5)
-    ax2.set_xlabel("Resistivity")
+    ax2.set_xlabel("Resistivity (LL8)")
     ax2.set_xlim(0.2, 2000)
     ax2.xaxis.label.set_color("red")
     ax2.tick_params(axis='x', colors="red")
@@ -104,33 +109,37 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dtc, formations_dict,
     ax2.set_xticklabels([])
 
     # Resistivity track (ILM)
-    ax3.plot(res, depth, color="blue", linewidth=0.5)
-    ax3.set_xlabel("Resistivity")
+    ax3.plot(res2, depth, color="blue", linewidth=0.5)
+    ax3.set_xlabel("Resistivity (ILM)")
     ax3.set_xlim(0.2, 2000)
     ax3.xaxis.label.set_color("blue")
     ax3.tick_params(axis='x', colors="blue")
+    ax3.spines["top"].set_position(("axes", 1.06))
+    ax3.spines["top"].set_visible(True)
     ax3.spines["top"].set_edgecolor("blue")
     ax3.set_xticks([0.1, 1, 10, 100, 1000])
     ax3.semilogx()
-    ax3.text(0.05, 1.04, 0.1, color='blue',
-             horizontalalignment='left', transform=ax2.transAxes)
-    ax3.text(0.95, 1.04, 1000, color='blue',
-             horizontalalignment='right', transform=ax2.transAxes)
+    ax3.text(0.05, 1.07, 0.1, color='blue',
+             horizontalalignment='left', transform=ax3.transAxes)
+    ax3.text(0.95, 1.07, 1000, color='blue',
+             horizontalalignment='right', transform=ax3.transAxes)
     ax3.set_xticklabels([])
 
     # Resistivity track (ILD)
-    ax4.plot(res, depth, color="green", linewidth=0.5)
-    ax4.set_xlabel("Resistivity")
+    ax4.plot(res3, depth, color="green", linewidth=0.5)
+    ax4.set_xlabel("Resistivity (ILD)")
     ax4.set_xlim(0.2, 2000)
     ax4.xaxis.label.set_color("green")
     ax4.tick_params(axis='x', colors="green")
+    ax4.spines["top"].set_position(("axes", 1.09))
     ax4.spines["top"].set_edgecolor("green")
+    ax4.spines["top"].set_visible(True)
     ax4.set_xticks([0.1, 1, 10, 100, 1000])
     ax4.semilogx()
-    ax4.text(0.05, 1.04, 0.1, color='green',
-             horizontalalignment='left', transform=ax2.transAxes)
-    ax4.text(0.95, 1.04, 1000, color='green',
-             horizontalalignment='right', transform=ax2.transAxes)
+    ax4.text(0.05, 1.1, 0.1, color='green',
+             horizontalalignment='left', transform=ax4.transAxes)
+    ax4.text(0.95, 1.1, 1000, color='green',
+             horizontalalignment='right', transform=ax4.transAxes)
     ax4.set_xticklabels([])
     # Adding peaks and troughs detection for Res
 
@@ -179,10 +188,24 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dtc, formations_dict,
              horizontalalignment='right', transform=ax6.transAxes)
     ax6.set_xticklabels([])
 
+    # DT
+    ax7.plot(dt, depth, color="blue", linewidth=0.5)
+    ax7.set_xlabel('Sonic (DT)')
+    ax7.set_xlim(200, 0)
+    ax7.xaxis.label.set_color("blue")
+    ax7.tick_params(axis='x', colors="blue")
+    ax7.spines["top"].set_edgecolor("blue")
+    ax7.set_xticks([200,  100, 0])
+    ax7.text(0.05, 1.04, 200, color='blue',
+             horizontalalignment='left', transform=ax7.transAxes)
+    ax7.text(0.95, 1.04, 0, color='blue',
+             horizontalalignment='right', transform=ax7.transAxes)
     ax7.set_xticklabels([])
-    ax7.text(0.5, 1.02, 'Biozones', fontweight='bold',
+
+    ax8.set_xticklabels([])
+    ax8.text(0.5, 1.02, 'Biozones', fontweight='bold',
              horizontalalignment='left', rotation="vertical",
-             transform=ax7.transAxes)
+             transform=ax8.transAxes)
 
     # Adding in neutron density shading
     x1 = dens
@@ -200,27 +223,27 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dtc, formations_dict,
 
     # Common functions for setting up the plot can be extracted into
     # a for loop. This saves repeating code.
-    for ax in [ax1, ax2, ax3, ax4, ax5]:
+    for ax in [ax1, ax2, ax5, ax7]:
         ax.set_ylim(bottomdepth, topdepth)
         ax.grid(which='major', color='lightgrey', linestyle='-')
         ax.xaxis.set_ticks_position("top")
         ax.xaxis.set_label_position("top")
         ax.spines["top"].set_position(("axes", 1.02))
 
-    for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7]:
+    for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8]:
         # loop through the formations dictionary and zone colors
         for depth, color in zip(formations_dict.values(), colors):
             # use the depths and colors to shade across the subplots
             ax.axhspan(depth[0], depth[1], color=color, alpha=0.1)
 
-    for ax in [ax2, ax3, ax4, ax5, ax6, ax7]:
+    for ax in [ax2, ax3, ax4, ax5, ax6, ax7, ax8]:
         plt.setp(ax.get_yticklabels(), visible=False)
 
     for label, formation_mid in zip(formations_dict.keys(),
                                     formation_midpoints):
-        ax7.text(0.5, formation_mid, label, rotation=90,
+        ax8.text(0.5, formation_mid, label, rotation=0, ha='center',
                  verticalalignment='center', fontweight='bold',
-                 fontsize='large')
+                 fontsize='small')
 
     plt.tight_layout()
     fig.subplots_adjust(wspace=0)
