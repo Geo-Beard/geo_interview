@@ -7,7 +7,7 @@ from utils.formation_utils import (formation_dict_maker,
 def demo_plot():
     # Read main log data
     well = read_data("data/WA1.txt")
-
+    print(well.describe())
     # Convert biozone CSV to python dict for plotting
     biozones_dict = formation_dict_maker("data/WA1_biozones.csv")
     biozone_midpoints = formation_midpoint_maker(biozones_dict)
@@ -19,6 +19,7 @@ def demo_plot():
     # Generate well log plot - saves to output folder
     makeplot(well['M__DEPTH'],
              well['GR'],
+             well['SP'],
              well['LL8'],
              well['ILM'],
              well['ILD'],

@@ -3,8 +3,9 @@ import numpy as np
 from scipy.signal import find_peaks
 
 
-def makeplot(depth, gamma, res, res2, res3, neut, dens, dt, formations_dict,
-             topdepth, bottomdepth, colors, formation_midpoints):
+def makeplot(depth, gamma, sp, res, res2, res3, neut, dens, dt,
+             formations_dict, topdepth, bottomdepth, colors,
+             formation_midpoints):
     fig, ax = plt.subplots(figsize=(15, 10))
     # Removes default 0-1 axes as we're using subplots
     fig.delaxes(ax)
@@ -26,6 +27,8 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dt, formations_dict,
     ax7 = plt.subplot2grid((1, 13), (0, 9), rowspan=1, colspan=3, sharey=ax1)
     # Biozones
     ax8 = plt.subplot2grid((1, 13), (0, 12), rowspan=1, colspan=1, sharey=ax1)
+    # SP
+    ax9 = ax1.twiny()
 
     # As our curve scales will be detached from the top of the track,
     # this code adds the top border back in without dealing with splines
@@ -93,6 +96,22 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dt, formations_dict,
         ax1.fill_betweenx(depth, gamma, right_col_value,
                           where=gamma >= index,  color=color)
 
+    # SP
+    ax9.plot(sp, depth, color="blue", linewidth=0.5)
+    ax9.set_xlabel("SP")
+    ax9.set_xlim(-160, 40)
+    ax9.xaxis.label.set_color("blue")
+    ax9.tick_params(axis='x', colors="blue")
+    ax9.spines["top"].set_position(("axes", 1.06))
+    ax9.spines["top"].set_visible(True)
+    ax9.spines["top"].set_edgecolor("blue")
+    ax9.set_xticks([-160, -140, -120, -100, -80, -60, -40, -20, 0, 20, 40])
+    ax9.text(0.05, 1.07, -160, color='blue',
+             horizontalalignment='left', transform=ax9.transAxes)
+    ax9.text(0.95, 1.07, 40, color='blue',
+             horizontalalignment='right', transform=ax9.transAxes)
+    ax9.set_xticklabels([])
+
     # Resistivity track (LL8)
     ax2.plot(res, depth, color="red", linewidth=0.5)
     ax2.set_xlabel("Resistivity (LL8)")
@@ -141,22 +160,22 @@ def makeplot(depth, gamma, res, res2, res3, neut, dens, dt, formations_dict,
     ax4.text(0.95, 1.1, 1000, color='green',
              horizontalalignment='right', transform=ax4.transAxes)
     ax4.set_xticklabels([])
-    # Adding peaks and troughs detection for Res
+    # # Adding peaks and troughs detection for Res
 
-    # Ensure gamma and depth are numpy arrays for indexing, already have depth
-    resistivity = np.array(res)
+    # # Ensure res is numpy array for indexing, already have depth
+    # resistivity = np.array(res)
 
-    # Detect peaks (high gamma values)
-    peaks, _ = find_peaks(resistivity, prominence=5, distance=10)
+    # # Detect peaks (high gamma values)
+    # peaks, _ = find_peaks(resistivity, prominence=5, distance=10)
 
-    # Detect troughs (low gamma values)
-    troughs, _ = find_peaks(-resistivity, prominence=5, distance=10)
+    # # Detect troughs (low gamma values)
+    # troughs, _ = find_peaks(-resistivity, prominence=5, distance=10)
 
-    # Plot markers on gamma track
-    ax2.plot(res[peaks], depth[peaks], 'ro', markersize=3,
-             label='Peaks')     # red dots for peaks
-    ax2.plot(res[troughs], depth[troughs], 'bo', markersize=3,
-             label='Troughs')  # blue dots for troughs
+    # # Plot markers on res track
+    # ax2.plot(res[peaks], depth[peaks], 'ro', markersize=3,
+    #          label='Peaks')     # red dots for peaks
+    # ax2.plot(res[troughs], depth[troughs], 'bo', markersize=3,
+    #          label='Troughs')  # blue dots for troughs
 
     # Density track
     ax5.plot(dens, depth, color="red", linewidth=0.5)
