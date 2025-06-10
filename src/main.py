@@ -19,10 +19,12 @@ def demo_plot():
     # Generate well log plot - saves to output folder
     makeplot(well['M__DEPTH'],
              well['GR'],
+             well['LL8'],
+             well['ILM'],
              well['ILD'],
              well['NPHI'],
              well['RHOB'],
-             None,
+             well['DT'],
              biozones_dict,
              0,
              3666,
